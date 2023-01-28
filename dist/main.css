@@ -1,4 +1,13 @@
-@import url(//db.onlinewebfonts.com/c/44ccb00548f8e4cf0346f98ac194679f?family=Supria+Sans);
+@font-face {
+  font-family: "Supria Sans";
+  src: url(assets/fonts/81302f3e197bfcb37f7fc660a47f86cc.ttf) format("embedded-opentype"),
+    /* Internet Explorer */ url(assets/fonts/81302f3e197bfcb37f7fc660a47f86cc.ttf) format("woff2"),
+    /* Super Modern Browsers */ url(assets/fonts/81302f3e197bfcb37f7fc660a47f86cc.ttf) format("woff"),
+    /* Pretty Modern Browsers */ url(assets/fonts/81302f3e197bfcb37f7fc660a47f86cc.ttf)
+      format("truetype"),
+    /* Safari, Android, iOS */ url(assets/fonts/81302f3e197bfcb37f7fc660a47f86cc.ttf) format("svg");
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -7,7 +16,7 @@
 html,
 body {
   height: 100vh;
-  font-family: "Supria Sans", sans-serif;
+  font-family: "Supria Sans";
   color: rgb(168, 168, 168);
   max-width: 100%;
   max-height: 100%;
