@@ -268,7 +268,7 @@ loader.load(
     });
   },
   (xhr) => {
-    const percentComplete = (xhr.loaded / xhr.total) * 100;
+    const percentComplete = parseInt((xhr.loaded / xhr.total) * 100);
     currentFile.innerHTML = `models/piano/piano.gltf<span>${percentComplete}%</div>`;
     loadingProgress.value = percentComplete;
   }
