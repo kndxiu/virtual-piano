@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      href="https://avatars.githubusercontent.com/u/95412042?s=96&v=4"
+      type="image/x-icon"
+    />
+    <title>Virtual Piano</title>
+  </head>
+  <body>
+    <canvas class="webgl"></canvas>
+    <div class="info">
+      This application may not look properly on phones, it is recommended to use
+      a computer or to rotate the phone horizontally.
+    </div>
+    <div class="switch">
+      <div id="view" class="currentView">Seat</div>
+      <div id="view1">Top</div>
+    </div>
+    <div id="loader">
+      <div id="title">Loading...</div>
+      <div id="file">Starting, please wait.</div>
+      <progress value="1" max="100" id="loadingProgress"></progress>
+    </div>
+  </body>
+</html>
