@@ -1,6 +1,3 @@
-# virtual-piano
-3D Virtual Playable Piano made in THREE.JS
-
 ## Setup
 
 Download [Node.js](https://nodejs.org/en/download/).
