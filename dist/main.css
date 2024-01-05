@@ -91,6 +91,12 @@ progress::-webkit-progress-value {
   gap: 1rem;
 }
 
+.iconify {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 #view,
 #view1 {
   position: relative;
@@ -132,6 +138,97 @@ progress::-webkit-progress-value {
 .info.hide {
   visibility: hidden;
   opacity: 0;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  width: 100%;
+  transition: 0.2s ease;
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Removes default focus */
+input[type="range"]:focus {
+  outline: none;
+}
+
+/******** Chrome, Safari, Opera and Edge Chromium styles ********/
+/* slider track */
+input[type="range"]::-webkit-slider-runnable-track {
+  background-color: rgb(189, 189, 189);
+  border-radius: 0.5rem;
+  height: 3px;
+}
+
+/* slider thumb */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  margin-top: -6.5px; /* Centers thumb on the track */
+  background-color: rgb(189, 189, 189);
+  border-radius: 0.5rem;
+  height: 1rem;
+  width: 1rem;
+}
+
+input[type="range"]:active::-webkit-slider-thumb {
+  background-color: #da8f20;
+}
+
+/*********** Firefox styles ***********/
+/* slider track */
+input[type="range"]::-moz-range-track {
+  background-color: rgb(189, 189, 189);
+  border-radius: 0.5rem;
+  height: 3px;
+}
+
+/* slider thumb */
+input[type="range"]::-moz-range-thumb {
+  background-color: rgb(189, 189, 189);
+  border: none; /*Removes extra border that FF applies*/
+  border-radius: 0.5rem;
+  height: 1rem;
+  width: 1rem;
+}
+
+input[type="range"]:active::-moz-range-thumb {
+  background-color: #da8f20;
+}
+
+.volume {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  overflow: hidden;
+  transition: 0.2s ease;
+}
+
+.volume:hover {
+  color: rgb(236, 236, 236);
+}
+
+.input {
+  overflow: hidden;
+  width: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.2s ease;
+  height: 1rem;
+}
+
+.volume:hover .input {
+  width: 100px;
+}
+
+.volume:hover input {
+  opacity: 1;
+  visibility: visible;
 }
 
 
