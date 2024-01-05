@@ -8,6 +8,7 @@
       href="https://avatars.githubusercontent.com/u/95412042?s=96&v=4"
       type="image/x-icon"
     />
+    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
     <title>Virtual Piano</title>
   </head>
   <body>
@@ -17,6 +18,23 @@
       a computer or to rotate the phone horizontally.
     </div>
     <div class="switch">
+      <span class="volume">
+        <div
+          style="
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.25rem;
+          "
+        >
+          <span class="volumeValue" id="val">50</span>
+          <span class="iconify" data-icon="mingcute:volume-fill"></span>
+        </div>
+        <div class="input">
+          <input type="range" name="" id="volume" min="0" max="100" />
+        </div>
+      </span>
+
       <div id="view" class="currentView">Seat</div>
       <div id="view1">Top</div>
     </div>
