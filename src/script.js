@@ -297,7 +297,7 @@ const setupEvents = () => {
     if (e.data.type == "keydown") onKeyPress(keyboardEvent);
     else if (e.data.type == "keyup") onKeyRelease(keyboardEvent);
   });
-  const inputFile = document.getElementById("file");
+  const inputFile = document.getElementById("midifile");
   inputFile.addEventListener("change", (event) => {
     const file = event.target.files[0];
     const reader = new FileReader();
