@@ -6,6 +6,7 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import gsap from "gsap";
 import { Power3 } from "gsap";
 import Howler from "howler";
+import { Midi } from "@tonejs/midi";
 const gsaptl = gsap.timeline();
 
 const fileLoader = document.getElementById("loader");
@@ -36,6 +37,15 @@ let renderer;
 const sizes = {
   width: window.innerWidth,
   height: window.innerHeight,
+};
+
+const getNoteIndex = (name) => {
+  for (let index = 0; index < notes.length; index++) {
+    if (notes[index].toString() === name.toString()) {
+      return index;
+    }
+  }
+  return -1;
 };
 
 const notes = [
@@ -276,13 +286,33 @@ const setupEvents = () => {
 
   document.addEventListener("keydown", onKeyPress);
   document.addEventListener("keyup", onKeyRelease);
+  window.addEventListener("message", (e) => {
+    if (e.data.type === "webpackOk") {
+      return;
+    }
+    const keyboardEvent = new KeyboardEvent(e.data.type, {
+      key: e.data.content,
+    });
+
+    if (e.data.type == "keydown") onKeyPress(keyboardEvent);
+    else if (e.data.type == "keyup") onKeyRelease(keyboardEvent);
+  });
+  const inputFile = document.getElementById("file");
+  inputFile.addEventListener("change", (event) => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    const bin = reader.readAsArrayBuffer(file);
+    reader.onload = function (e) {
+      playMIDIFile(e.target.result);
+    };
+  });
 };
 
-const playSound = (name) => {
+const playSound = (name, velocity = 1) => {
   const sound = audioSources[name];
   const soundId = sound.play();
-  sound.fade(0, volume, 50, soundId);
-  sound.fade(volume, 0, 3000);
+  sound.fade(0, volume * velocity, 50, soundId);
+  sound.fade(volume * velocity, 0, 3000);
 };
 
 setupLights();
@@ -468,6 +498,55 @@ const filesLoaded = () => {
       document.querySelector(".info").remove();
     }, 400);
   }, 5000);
+};
+
+const sharpToFlat = (noteName) => {
+  const flats = {
+    "A#": "Bb",
+    "C#": "Db",
+    "D#": "Eb",
+    "F#": "Gb",
+    "G#": "Ab",
+  };
+  return flats[noteName] || noteName;
+};
+
+const playMIDIFile = (file) => {
+  const notes = [];
+  const velocities = [];
+  const durations = [];
+  const delays = [];
+
+  const midi = new Midi(file);
+  const tracks = midi.tracks;
+  tracks.forEach((track) => {
+    const notesTrack = track.notes;
+    notesTrack.forEach((note) => {
+      const pitch = sharpToFlat(note.pitch);
+      const name = `${pitch + note.octave}`;
+      const velocity = note.velocity;
+      notes.push(name);
+      velocities.push(velocity);
+      durations.push(note.duration * 1000);
+      delays.push(note.time * 1000);
+    });
+  });
+
+  for (let i = 0; i < notes.length; i++) {
+    setTimeout(() => {
+      try {
+        playSound(notes[i], velocities[i]);
+        const id = getNoteIndex(notes[i]);
+        const key = piano.children[0].getObjectByName(
+          `key${id.toString().padStart(2, 0)}`
+        );
+        pressKey(key);
+        setTimeout(() => {
+          releaseKey(key);
+        }, durations[i]);
+      } catch (error) {}
+    }, delays[i]);
+  }
 };
 
 const getNote = (string) => {
